@@ -1,7 +1,7 @@
-var express = require('express');
-var bodyParser = require('body-parser');
+var express = require("express");
+var bodyParser = require("body-parser");
 
-Beer = require('./models/beers');
+Beer = require("./models/beers");
 
 var app = express();
 
@@ -10,25 +10,27 @@ var app = express();
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 
-app.set('port', 123456);
+app.set("port", 123456);
 
 // Connect to MongoDB database via Mongoose library
-mongoose.connect('mongodb://localhost/beerFavs');
+mongoose.connect(
+  "mongodb://admin:RHyudhovtitsOs5@ds113795.mlab.com:13795/beerfavs"
+);
 var db = mongoose.connection;
 
 // RESTful API
-app.get('/', (req, res) => {
-	res.send('Please use /api/beers');
+app.get("/", (req, res) => {
+  res.send("Please use /api/beers");
 });
 
 // Get beer list
-app.get('/beers', (req, res) => {
-	Beer.find((err, beers) => {
-		if(err){
-			throw err;
-		}
-		res.json(beers);
-	});
+app.get("/beers", (req, res) => {
+  Beer.find((err, beers) => {
+    if (err) {
+      throw err;
+    }
+    res.json(beers);
+  });
 });
 
 // Get one specific beer by id
@@ -78,6 +80,6 @@ app.get('/beers', (req, res) => {
 // 	});
 // });
 
-app.listen(app.get('port'), function() {
-  console.log('Web Server started on port ' + app.get('port'));
+app.listen(app.get("port"), function() {
+  console.log("Web Server started on port " + app.get("port"));
 });
